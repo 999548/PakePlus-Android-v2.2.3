@@ -1,11 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PakePlus</title>
-    </head>
-    <body>
-        PakePlus
-    </body>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>圆鲨鲨的提问</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei";
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .dialog {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            min-width: 300px;
+        }
+        img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+        h2 {
+            color: #ff6680;
+            margin-bottom: 30px;
+        }
+        button {
+            font-size: 20px;
+            margin: 10px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-yes {
+            background-color: #ff6680;
+            color: white;
+        }
+        .btn-yes:hover {
+            background-color: #ff3355;
+            transform: scale(1.05);
+        }
+        .btn-no {
+            background-color: #999;
+            color: white;
+        }
+        .btn-no:hover {
+            background-color: #666;
+            transform: scale(1.05);
+        }
+        .custom-btn {
+            background-color: #ffcc00;
+            color: #333;
+            font-size: 18px;
+            padding: 8px 20px;
+            margin-top: 10px;
+        }
+        .custom-btn:hover {
+            background-color: #ffaa00;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+    let step = 'question'; // question, result_like, result_dislike
+    
+    function render() {
+        const app = document.getElementById('app');
+        
+        if (step === 'question') {
+            app.innerHTML = `
+                <div class="dialog">
+                    <img src="yuanshasha.jpg" alt="圆鲨鲨">
+                    <h2>圆鲨鲨：你喜不喜欢我？</h2>
+                    <button class="btn-yes" onclick="answer(true)">当然喜欢</button>
+                    <button class="btn-no" onclick="answer(false)">不喜欢</button>
+                </div>
+            `;
+        } else if (step === 'result_like') {
+            app.innerHTML = `
+                <div class="dialog">
+                    <img src="yuanshasha.jpg" alt="圆鲨鲨">
+                    <h2>圆鲨鲨：我也喜欢你！</h2>
+                    <p>❤️ 好开心 ❤️</p>
+                </div>
+            `;
+        } else if (step === 'result_dislike') {
+            app.innerHTML = `
+                <div class="dialog">
+                    <img src="yuanshasha.jpg" alt="圆鲨鲨">
+                    <h2>😢 真的吗？</h2>
+                    <button class="custom-btn" onclick="reset()">再问一次</button>
+                </div>
+            `;
+        }
+    }
+    
+    function answer(isLike) {
+        if (isLike) {
+            step = 'result_like';
+        } else {
+            step = 'result_dislike';
+        }
+        render();
+    }
+    
+    function reset() {
+        step = 'question';
+        render();
+    }
+    
+    render();
+</script>
+</body>
 </html>
